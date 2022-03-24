@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Base58",
+        "repositoryURL": "https://github.com/anquii/Base58.git",
+        "state": {
+          "branch": null,
+          "revision": "f3adfb7b0d1a881966688942b60fb10e59b468be",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Base58Check",
+        "repositoryURL": "https://github.com/anquii/Base58Check.git",
+        "state": {
+          "branch": null,
+          "revision": "0f54f5f0fd69deb1e2e1bea3df9432b5a7a18ff7",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "BigInt",
+        "repositoryURL": "https://github.com/attaswift/BigInt.git",
+        "state": {
+          "branch": null,
+          "revision": "0ed110f7555c34ff468e72e1686e59721f2b0da6",
+          "version": "5.3.0"
+        }
+      },
+      {
+        "package": "BIP32",
+        "repositoryURL": "https://github.com/anquii/BIP32.git",
+        "state": {
+          "branch": null,
+          "revision": "733b958153db5d28918f77e84647e7cd4c4d689f",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "RIPEMD160",
+        "repositoryURL": "https://github.com/anquii/RIPEMD160.git",
+        "state": {
+          "branch": null,
+          "revision": "15679c6fe1f3ae32ec1bad63bcc45aa422954f01",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "secp256k1",
+        "repositoryURL": "https://github.com/GigaBitcoin/secp256k1.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "abe7c8232970c1fd57f4c77590bce2c868df7137",
+          "version": "0.5.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
