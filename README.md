@@ -23,7 +23,3 @@ Add the following line to your `Package.swift` file:
 ## License
 
 `BIP44` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more information.
-
-## Acknowledgments
-
-In developing `BIP44`, [KevinVitale](https://github.com/KevinVitale)'s [WalletKit](https://github.com/KevinVitale/WalletKit) has been used as a reference implementation.
