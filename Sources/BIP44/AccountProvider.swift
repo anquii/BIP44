@@ -6,7 +6,7 @@ public protocol AccountProviding {
 }
 
 public struct AccountProvider {
-    private static let purposeIndex = UInt32(0x8000002C)
+    private static let hardenedPurposeIndex = UInt32(0x8000002C)
 
     private let privateMasterKeyDerivator: PrivateMasterKeyDerivating
     private let privateChildKeyDerivator: PrivateChildKeyDerivating
@@ -32,7 +32,7 @@ extension AccountProvider: AccountProviding {
             )
             let privatePurposeChildKey = try privateChildKeyDerivator.privateChildKey(
                 privateParentKey: privateMasterKey,
-                index: Self.purposeIndex
+                index: Self.hardenedPurposeIndex
             )
             let privateCoinTypeChildKey = try privateChildKeyDerivator.privateChildKey(
                 privateParentKey: privatePurposeChildKey,
