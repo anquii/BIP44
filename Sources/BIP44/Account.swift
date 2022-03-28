@@ -5,7 +5,7 @@ public struct Account {
     public let coinType: CoinType
     public let privateKey: ExtendedKeyable
 
-    public init(
+    init(
         name: String,
         coinType: CoinType,
         privateKey: ExtendedKeyable
