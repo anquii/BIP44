@@ -1,11 +1,11 @@
 import Foundation
 import BIP32
 
-public protocol AccountProviding {
-    func account(seed: Data, configuration: AccountConfiguration) throws -> Account
+public protocol PrivateAccountProviding {
+    func privateAccount(seed: Data, configuration: AccountConfiguration) throws -> Account
 }
 
-public struct AccountProvider {
+public struct PrivateAccountProvider {
     private static let hardenedPurposeIndex = UInt32(0x8000002C)
 
     private let privateMasterKeyDerivator: PrivateMasterKeyDerivating
@@ -23,9 +23,9 @@ public struct AccountProvider {
     }
 }
 
-// MARK: - AccountProviding
-extension AccountProvider: AccountProviding {
-    public func account(seed: Data, configuration: AccountConfiguration) throws -> Account {
+// MARK: - PrivateAccountProviding
+extension PrivateAccountProvider: PrivateAccountProviding {
+    public func privateAccount(seed: Data, configuration: AccountConfiguration) throws -> Account {
         do {
             let privateMasterKey = try privateMasterKeyDerivator.privateMasterKey(
                 seed: seed
@@ -45,7 +45,7 @@ extension AccountProvider: AccountProviding {
             return Account(
                 name: configuration.name,
                 coinType: configuration.coinType,
-                privateKey: privateAccountChildKey
+                extendedKey: privateAccountChildKey
             )
         } catch {
             throw AccountProviderError.invalidAccount

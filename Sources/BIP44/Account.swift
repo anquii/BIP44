@@ -3,15 +3,15 @@ import BIP32
 public struct Account {
     public let name: String
     public let coinType: CoinType
-    public let privateKey: ExtendedKeyable
+    public let extendedKey: ExtendedKeyable
 
     init(
         name: String,
         coinType: CoinType,
-        privateKey: ExtendedKeyable
+        extendedKey: ExtendedKeyable
     ) {
         self.name = name
         self.coinType = coinType
-        self.privateKey = privateKey
+        self.extendedKey = extendedKey
     }
 }
