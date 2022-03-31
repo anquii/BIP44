@@ -45,7 +45,8 @@ extension PrivateAccountProvider: PrivateAccountProviding {
             return Account(
                 name: configuration.name,
                 coinType: configuration.coinType,
-                extendedKey: privateAccountChildKey
+                extendedKey: privateAccountChildKey,
+                keyAccessControl: .`private`
             )
         } catch {
             throw AccountProviderError.invalidAccount

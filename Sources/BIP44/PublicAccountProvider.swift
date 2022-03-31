@@ -1,4 +1,3 @@
-import Foundation
 import BIP32
 
 public protocol PublicAccountProviding {
@@ -23,7 +22,8 @@ extension PublicAccountProvider: PublicAccountProviding {
             return Account(
                 name: privateAccount.name,
                 coinType: privateAccount.coinType,
-                extendedKey: publicAccountChildKey
+                extendedKey: publicAccountChildKey,
+                keyAccessControl: .`public`
             )
         } catch {
             throw AccountProviderError.invalidAccount
