@@ -27,25 +27,26 @@ public struct AccountProvider {
 extension AccountProvider: AccountProviding {
     public func account(seed: Data, configuration: AccountConfiguration) throws -> Account {
         do {
-            let privateMasterKey = try privateMasterKeyDerivator.privateMasterKey(
+            let privateMasterKey = try privateMasterKeyDerivator.privateKey(
                 seed: seed
             )
-            let privatePurposeChildKey = try privateChildKeyDerivator.privateChildKey(
+            let privatePurposeChildKey = try privateChildKeyDerivator.privateKey(
                 privateParentKey: privateMasterKey,
                 index: Self.hardenedPurposeIndex
             )
-            let privateCoinTypeChildKey = try privateChildKeyDerivator.privateChildKey(
+            let privateCoinTypeChildKey = try privateChildKeyDerivator.privateKey(
                 privateParentKey: privatePurposeChildKey,
                 index: try keyIndexHardener.hardenedIndex(normalIndex: configuration.coinType.index)
             )
-            let privateAccountChildKey = try privateChildKeyDerivator.privateChildKey(
+            let privateAccountChildKey = try privateChildKeyDerivator.privateKey(
                 privateParentKey: privateCoinTypeChildKey,
                 index: try keyIndexHardener.hardenedIndex(normalIndex: configuration.index)
             )
             return Account(
                 name: configuration.name,
                 coinType: configuration.coinType,
-                extendedKey: privateAccountChildKey
+                extendedKey: privateAccountChildKey,
+                isNeutered: false
             )
         } catch {
             throw AccountProviderError.invalidAccount

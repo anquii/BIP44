@@ -1,7 +1,7 @@
 import BIP32
 
 public protocol NeuteredAccountProviding {
-    func neuteredAccount(account: Account) throws -> Account
+    func neuteredAccount(account: Account) -> Account
 }
 
 public struct NeuteredAccountProvider {
@@ -14,18 +14,15 @@ public struct NeuteredAccountProvider {
 
 // MARK: - NeuteredAccountProviding
 extension NeuteredAccountProvider: NeuteredAccountProviding {
-    public func neuteredAccount(account: Account) throws -> Account {
-        do {
-            let publicAccountChildKey = try publicChildKeyDerivator.publicKey(
-                privateKey: account.extendedKey
-            )
-            return Account(
-                name: account.name,
-                coinType: account.coinType,
-                extendedKey: publicAccountChildKey
-            )
-        } catch {
-            throw AccountProviderError.invalidAccount
-        }
+    public func neuteredAccount(account: Account) -> Account {
+        let publicAccountChildKey = try! publicChildKeyDerivator.publicKey(
+            privateKey: account.extendedKey
+        )
+        return Account(
+            name: account.name,
+            coinType: account.coinType,
+            extendedKey: publicAccountChildKey,
+            isNeutered: true
+        )
     }
 }
