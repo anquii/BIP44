@@ -33,7 +33,7 @@ let address = addressProvider.address(index: 0)
 // e.g. 1PRTTaJesdNovgne6Ehcdu1fpEdX7913CK
 ```
 
-Find out more by exploring the public API (e.g. for neutered accounts), and by looking through the [tests](Tests/BIP44Tests).
+Find out more by exploring the public API (e.g. for neutered accounts), and by looking through the [tests](Tests/BIP44Tests). Please also read through the [BIP-0044](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) requirements about [when to allow the creation of an account](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account), and [how to discover accounts](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery) following the import of a master seed from an external source.
 
 ## License
 
