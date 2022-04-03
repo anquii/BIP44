@@ -34,7 +34,7 @@ public struct AccountProvider {
                 index: try keyIndexHardener.hardenedIndex(normalIndex: coinType.index)
             )
         } catch {
-            throw AccountProviderError.invalidAccountProvider
+            throw AccountProviderError.invalidInput
         }
         self.coinType = coinType
         self.privateMasterKeyDerivator = privateMasterKeyDerivator
