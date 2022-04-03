@@ -2,30 +2,25 @@ import Foundation
 import BIP32
 
 public protocol AccountProviding {
-    func account(seed: Data, configuration: AccountConfiguration) throws -> Account
+    func account(name: String, index: UInt32) throws -> Account
 }
 
 public struct AccountProvider {
     private static let hardenedPurposeIndex = UInt32(0x8000002C)
 
+    private let coinType: CoinType
     private let privateMasterKeyDerivator: PrivateMasterKeyDerivating
     private let privateChildKeyDerivator: PrivateChildKeyDerivating
     private let keyIndexHardener: KeyIndexHardening
+    private let privateCoinTypeChildKey: ExtendedKeyable
 
     public init(
+        seed: Data,
+        coinType: CoinType,
         privateMasterKeyDerivator: PrivateMasterKeyDerivating = PrivateMasterKeyDerivator(),
         privateChildKeyDerivator: PrivateChildKeyDerivating = PrivateChildKeyDerivator(),
         keyIndexHardener: KeyIndexHardening = KeyIndexHardener()
-    ) {
-        self.privateMasterKeyDerivator = privateMasterKeyDerivator
-        self.privateChildKeyDerivator = privateChildKeyDerivator
-        self.keyIndexHardener = keyIndexHardener
-    }
-}
-
-// MARK: - AccountProviding
-extension AccountProvider: AccountProviding {
-    public func account(seed: Data, configuration: AccountConfiguration) throws -> Account {
+    ) throws {
         do {
             let privateMasterKey = try privateMasterKeyDerivator.privateKey(
                 seed: seed
@@ -34,17 +29,31 @@ extension AccountProvider: AccountProviding {
                 privateParentKey: privateMasterKey,
                 index: Self.hardenedPurposeIndex
             )
-            let privateCoinTypeChildKey = try privateChildKeyDerivator.privateKey(
+            privateCoinTypeChildKey = try privateChildKeyDerivator.privateKey(
                 privateParentKey: privatePurposeChildKey,
-                index: try keyIndexHardener.hardenedIndex(normalIndex: configuration.coinType.index)
+                index: try keyIndexHardener.hardenedIndex(normalIndex: coinType.index)
             )
+        } catch {
+            throw AccountProviderError.invalidAccountProvider
+        }
+        self.coinType = coinType
+        self.privateMasterKeyDerivator = privateMasterKeyDerivator
+        self.privateChildKeyDerivator = privateChildKeyDerivator
+        self.keyIndexHardener = keyIndexHardener
+    }
+}
+
+// MARK: - AccountProviding
+extension AccountProvider: AccountProviding {
+    public func account(name: String, index: UInt32) throws -> Account {
+        do {
             let privateAccountChildKey = try privateChildKeyDerivator.privateKey(
                 privateParentKey: privateCoinTypeChildKey,
-                index: try keyIndexHardener.hardenedIndex(normalIndex: configuration.index)
+                index: try keyIndexHardener.hardenedIndex(normalIndex: index)
             )
             return Account(
-                name: configuration.name,
-                coinType: configuration.coinType,
+                name: name,
+                coinType: coinType,
                 extendedKey: privateAccountChildKey,
                 isNeutered: false
             )
