@@ -20,6 +20,21 @@ Add the following line to your `Package.swift` file:
 ```
 ...or integrate with Xcode via `File -> Swift Packages -> Add Package Dependency...` using the URL of the repository.
 
+## Usage
+
+```swift
+import BIP44
+
+let accountProvider: AccountProviding = try AccountProvider(seed: seed, coinType: coinType)
+let account = try accountProvider.account(name: "Savings", index: 0)
+
+let addressProvider: AddressProviding = AddressProvider(account: account, addressType: .`external`, addressVersion: 0)
+let address = addressProvider.address(index: 0)
+// e.g. 1PRTTaJesdNovgne6Ehcdu1fpEdX7913CK
+```
+
+Find out more by exploring the public API (e.g. for neutered accounts), and by looking through the [tests](Tests/BIP44Tests).
+
 ## License
 
 `BIP44` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more information.
