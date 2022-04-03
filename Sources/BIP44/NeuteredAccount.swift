@@ -1,6 +1,6 @@
 import BIP32
 
-public struct Account {
+public struct NeuteredAccount {
     public let name: String
     public let coinType: CoinType
     public let extendedKey: ExtendedKeyable

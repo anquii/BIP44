@@ -54,11 +54,10 @@ extension AccountProvider: AccountProviding {
             return Account(
                 name: name,
                 coinType: coinType,
-                extendedKey: privateAccountChildKey,
-                isNeutered: false
+                extendedKey: privateAccountChildKey
             )
         } catch {
-            throw AccountProviderError.invalidAccount
+            throw AccountProviderError.invalidInput
         }
     }
 }
