@@ -17,7 +17,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/anquii/BIP32.git",
-            .upToNextMajor(from: "1.0.0")
+            from: "1.0.0"
+        ),
+        .package(
+            url: "https://github.com/anquii/CryptoSwiftWrapper.git",
+            .upToNextMajor(from: "1.4.3")
         )
     ],
     targets: [
@@ -27,7 +31,10 @@ let package = Package(
         ),
         .testTarget(
             name: "BIP44Tests",
-            dependencies: ["BIP44"]
+            dependencies: [
+                "BIP44",
+                "CryptoSwiftWrapper"
+            ]
         )
     ]
 )
