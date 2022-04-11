@@ -2,8 +2,8 @@ import Foundation
 import BIP32
 
 public protocol AddressProviding {
-    func address(index: UInt32) -> (value: String, privateKey: Data)
     func address(index: UInt32) -> String
+    func addressAndPrivateKey(index: UInt32) -> (address: String, privateKey: Data)
 }
 
 public struct AddressProvider {
@@ -22,42 +22,32 @@ public struct AddressProvider {
         privateChildKeyDerivator: PrivateChildKeyDerivating = PrivateChildKeyDerivator(),
         publicChildKeyDerivator: PublicChildKeyDerivating = PublicChildKeyDerivator()
     ) {
+        let privateAccountKey = ExtendedKey(serializedKey: account.serializedKey)
+        privateChangeChildKey = try! privateChildKeyDerivator.privateKey(
+            privateParentKey: privateAccountKey,
+            index: addressType.rawValue
+        )
         self.account = account
         self.addressVersion = addressVersion
         self.addressDerivator = addressDerivator
         self.privateChildKeyDerivator = privateChildKeyDerivator
         self.publicChildKeyDerivator = publicChildKeyDerivator
-        privateChangeChildKey = try! privateChildKeyDerivator.privateKey(
-            privateParentKey: account.extendedKey,
-            index: addressType.rawValue
-        )
     }
 }
 
 // MARK: - AddressProviding
 extension AddressProvider: AddressProviding {
-    public func address(index: UInt32) -> (value: String, privateKey: Data) {
-        let privateAddressIndexChildKey = try! privateChildKeyDerivator.privateKey(
-            privateParentKey: privateChangeChildKey,
-            index: index
-        )
-        let address = address(privateKey: privateAddressIndexChildKey)
-        return (address, privateAddressIndexChildKey.key)
-    }
-
     public func address(index: UInt32) -> String {
+        addressAndPrivateKey(index: index).address
+    }
+
+    public func addressAndPrivateKey(index: UInt32) -> (address: String, privateKey: Data) {
         let privateAddressIndexChildKey = try! privateChildKeyDerivator.privateKey(
             privateParentKey: privateChangeChildKey,
             index: index
         )
-        return address(privateKey: privateAddressIndexChildKey)
-    }
-}
-
-// MARK: - Helpers
-fileprivate extension AddressProvider {
-    func address(privateKey: ExtendedKeyable) -> String {
-        let publicKey = try! publicChildKeyDerivator.publicKey(privateKey: privateKey)
-        return addressDerivator.address(publicKey: publicKey.key, version: addressVersion)
+        let publicAddressIndexChildKey = try! publicChildKeyDerivator.publicKey(privateKey: privateAddressIndexChildKey)
+        let address = addressDerivator.address(publicKey: publicAddressIndexChildKey.key, version: addressVersion)
+        return (address, privateAddressIndexChildKey.key)
     }
 }
