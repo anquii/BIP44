@@ -22,9 +22,9 @@ public struct AddressProvider {
         privateChildKeyDerivator: PrivateChildKeyDerivating = PrivateChildKeyDerivator(),
         publicChildKeyDerivator: PublicChildKeyDerivating = PublicChildKeyDerivator()
     ) {
-        let privateAccountKey = ExtendedKey(serializedKey: account.serializedKey)
+        let privateAccountChildKey = ExtendedKey(serializedKey: account.serializedKey)
         privateChangeChildKey = try! privateChildKeyDerivator.privateKey(
-            privateParentKey: privateAccountKey,
+            privateParentKey: privateAccountChildKey,
             index: addressType.rawValue
         )
         self.account = account

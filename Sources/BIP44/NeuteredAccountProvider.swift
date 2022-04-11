@@ -1,27 +1,48 @@
 import BIP32
 
 public protocol NeuteredAccountProviding {
-    func neuteredAccount(account: Account) -> NeuteredAccount
+    func neuteredAccount(account: Account) throws -> NeuteredAccount
 }
 
 public struct NeuteredAccountProvider {
     private let publicChildKeyDerivator: PublicChildKeyDerivating
+    private let keySerializer: KeySerializing
 
-    public init(publicChildKeyDerivator: PublicChildKeyDerivating = PublicChildKeyDerivator()) {
+    public init(
+        publicChildKeyDerivator: PublicChildKeyDerivating = PublicChildKeyDerivator(),
+        keySerializer: KeySerializing = KeySerializer()
+    ) {
         self.publicChildKeyDerivator = publicChildKeyDerivator
+        self.keySerializer = keySerializer
     }
 }
 
 // MARK: - NeuteredAccountProviding
 extension NeuteredAccountProvider: NeuteredAccountProviding {
-    public func neuteredAccount(account: Account) -> NeuteredAccount {
-        let publicAccountChildKey = try! publicChildKeyDerivator.publicKey(
-            privateKey: account.extendedKey
-        )
-        return NeuteredAccount(
-            name: account.name,
-            coinType: account.coinType,
-            extendedKey: publicAccountChildKey
-        )
+    public func neuteredAccount(account: Account) throws -> NeuteredAccount {
+        do {
+            let privateAccountChildKey = ExtendedKey(serializedKey: account.serializedKey)
+            let publicAccountChildKey = try! publicChildKeyDerivator.publicKey(
+                privateKey: privateAccountChildKey
+            )
+            let publicAccountChildKeyAttributes = ChildKeyAttributes(
+                accessControl: .`public`,
+                version: account.serializedKey.version,
+                depth: account.serializedKey.depth,
+                parentKeyFingerprint: account.serializedKey.parentKeyFingerprint,
+                index: account.serializedKey.index
+            )
+            let publicAccountSerializedChildKey = try keySerializer.serializedKey(
+                extendedKey: publicAccountChildKey,
+                attributes: publicAccountChildKeyAttributes
+            )
+            return NeuteredAccount(
+                name: account.name,
+                coinType: account.coinType,
+                serializedKey: publicAccountSerializedChildKey
+            )
+        } catch {
+            throw AccountProviderError.invalidInput
+        }
     }
 }
