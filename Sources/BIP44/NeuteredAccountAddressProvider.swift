@@ -18,14 +18,15 @@ public struct NeuteredAccountAddressProvider {
         addressDerivator: KeyAddressDerivating = KeyAddressDerivator(),
         publicChildKeyDerivator: PublicChildKeyDerivating = PublicChildKeyDerivator()
     ) {
+        let publicAccountChildKey = ExtendedKey(serializedKey: neuteredAccount.serializedKey)
+        publicChangeChildKey = try! publicChildKeyDerivator.publicKey(
+            publicParentKey: publicAccountChildKey,
+            index: addressType.rawValue
+        )
         self.neuteredAccount = neuteredAccount
         self.addressVersion = addressVersion
         self.addressDerivator = addressDerivator
         self.publicChildKeyDerivator = publicChildKeyDerivator
-        publicChangeChildKey = try! publicChildKeyDerivator.publicKey(
-            publicParentKey: neuteredAccount.extendedKey,
-            index: addressType.rawValue
-        )
     }
 }
 
