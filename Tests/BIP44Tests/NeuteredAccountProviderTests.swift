@@ -22,8 +22,8 @@ final class NeuteredAccountProviderTests: XCTestCase {
             index: AccountTestVector.index
         )
         let account = try accountProvider.account(configuration: configuration)
-        let neuteredAccount = try sut().neuteredAccount(account: account, version: AccountTestVector.neuteredVersion)
+        let neuteredAccount = try sut().neuteredAccount(account: account, version: NeuteredAccountTestVector.version)
         let base58CheckEncodedPublicKey = serializedKeyCoder.encode(serializedKey: neuteredAccount.serializedKey)
-        XCTAssertEqual(base58CheckEncodedPublicKey, AccountTestVector.base58CheckEncodedPublicKey)
+        XCTAssertEqual(base58CheckEncodedPublicKey, NeuteredAccountTestVector.base58CheckEncodedKey)
     }
 }

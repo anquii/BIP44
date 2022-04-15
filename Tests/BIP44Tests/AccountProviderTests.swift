@@ -19,6 +19,6 @@ final class AccountProviderTests: XCTestCase {
         )
         let account = try sut.account(configuration: configuration)
         let base58CheckEncodedPrivateKey = serializedKeyCoder.encode(serializedKey: account.serializedKey)
-        XCTAssertEqual(base58CheckEncodedPrivateKey, AccountTestVector.base58CheckEncodedPrivateKey)
+        XCTAssertEqual(base58CheckEncodedPrivateKey, AccountTestVector.base58CheckEncodedKey)
     }
 }

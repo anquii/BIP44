@@ -8,7 +8,7 @@ struct AccountTestVector {
         .components(separatedBy: .newlines)
         .joined()
 
-    static let base58CheckEncodedPrivateKey =
+    static let base58CheckEncodedKey =
         """
         xprv9z9SAPmBGgnjFMxMcA4p15cfgEaH7xA5n
         k2ekShz3si1YcTTLrZu2EubR2X3i9we8pyC9A
@@ -17,18 +17,8 @@ struct AccountTestVector {
         .components(separatedBy: .newlines)
         .joined()
 
-    static let base58CheckEncodedPublicKey =
-        """
-        xpub6D8nZuJ574M2Tr2piBbpNDZQEGQmXQsw9
-        xxFYq7bcDEzRQnbtPt9a3E5GHsJfLz2A5tqJN
-        rBmNPAYEVGXitoQMnEpH2JLnSX3qfGVpHfm4o
-        """
-        .components(separatedBy: .newlines)
-        .joined()
-
     static let name = "Savings"
     static let version = UInt32(0x0488ADE4)
-    static let neuteredVersion = UInt32(0x0488B21E)
     static let index = UInt32(0)
 
     private init() {}
