@@ -1,7 +1,7 @@
 import BIP32
 
 public protocol NeuteredAccountProviding {
-    func neuteredAccount(account: Account) throws -> NeuteredAccount
+    func neuteredAccount(account: Account, version: UInt32) throws -> NeuteredAccount
 }
 
 public struct NeuteredAccountProvider {
@@ -19,7 +19,7 @@ public struct NeuteredAccountProvider {
 
 // MARK: - NeuteredAccountProviding
 extension NeuteredAccountProvider: NeuteredAccountProviding {
-    public func neuteredAccount(account: Account) throws -> NeuteredAccount {
+    public func neuteredAccount(account: Account, version: UInt32) throws -> NeuteredAccount {
         do {
             let privateAccountChildKey = ExtendedKey(
                 serializedKey: account.serializedKey,
@@ -30,7 +30,7 @@ extension NeuteredAccountProvider: NeuteredAccountProviding {
             )
             let publicAccountChildKeyAttributes = ChildKeyAttributes(
                 accessControl: .`public`,
-                version: account.serializedKey.version,
+                version: version,
                 depth: account.serializedKey.depth,
                 parentKeyFingerprint: account.serializedKey.parentKeyFingerprint,
                 index: account.serializedKey.index
