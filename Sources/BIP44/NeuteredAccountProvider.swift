@@ -21,8 +21,11 @@ public struct NeuteredAccountProvider {
 extension NeuteredAccountProvider: NeuteredAccountProviding {
     public func neuteredAccount(account: Account) throws -> NeuteredAccount {
         do {
-            let privateAccountChildKey = ExtendedKey(serializedKey: account.serializedKey)
-            let publicAccountChildKey = try! publicChildKeyDerivator.publicKey(
+            let privateAccountChildKey = ExtendedKey(
+                serializedKey: account.serializedKey,
+                accessControl: .`private`
+            )
+            let publicAccountChildKey = try publicChildKeyDerivator.publicKey(
                 privateKey: privateAccountChildKey
             )
             let publicAccountChildKeyAttributes = ChildKeyAttributes(
