@@ -1,4 +1,3 @@
-import Foundation
 import BIP44
 
 struct AddressTestVector: Decodable {
