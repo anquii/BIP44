@@ -16,7 +16,7 @@ final class NeuteredAccountProviderTests: XCTestCase {
         .init()
     }
 
-    func testGivenAccount_WhenNeutered_ThenEqualVectorAccount() throws {
+    func testGivenAccount_WhenNeutered_ThenEqualNeuteredVectorAccount() throws {
         let configuration = AccountConfiguration(
             name: AccountTestVector.name,
             version: AccountTestVector.version,
