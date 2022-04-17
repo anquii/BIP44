@@ -45,7 +45,7 @@ extension NeuteredAccountProvider: NeuteredAccountProviding {
                 serializedKey: publicAccountSerializedChildKey
             )
         } catch {
-            throw AccountProviderError.invalidInput
+            throw AccountError.invalidInput
         }
     }
 }
