@@ -39,7 +39,7 @@ public struct AccountProvider {
             let publicCoinTypeChildKey = try publicChildKeyDerivator.publicKey(privateKey: privateCoinTypeChildKey)
             publicCoinTypeChildKeyFingerprint = keyFingerprintDerivator.fingerprint(publicKey: publicCoinTypeChildKey.key)
         } catch {
-            throw AccountError.invalidInput
+            throw AccountProviderError.invalidInput
         }
         self.coinType = coinType
         self.privateChildKeyDerivator = privateChildKeyDerivator
@@ -74,7 +74,7 @@ extension AccountProvider: AccountProviding {
                 serializedKey: privateAccountSerializedChildKey
             )
         } catch {
-            throw AccountError.invalidInput
+            throw AccountProviderError.invalidInput
         }
     }
 }
