@@ -24,7 +24,11 @@ extension NeuteredAccountImporter: NeuteredAccountImporting {
             }
             return NeuteredAccount(name: name, coinType: coinType, serializedKey: serializedKey)
         } catch {
-            throw AccountImporterError.invalidInput
+            if error is AccountImporterError {
+                throw error
+            } else {
+                throw AccountImporterError.invalidInput
+            }
         }
     }
 }
