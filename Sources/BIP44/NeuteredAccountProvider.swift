@@ -39,7 +39,7 @@ extension NeuteredAccountProvider: NeuteredAccountProviding {
                 extendedKey: publicAccountChildKey,
                 attributes: publicAccountChildKeyAttributes
             )
-            return try NeuteredAccount(
+            return NeuteredAccount(
                 name: account.name,
                 coinType: account.coinType,
                 serializedKey: publicAccountSerializedChildKey

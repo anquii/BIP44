@@ -68,7 +68,7 @@ extension AccountProvider: AccountProviding {
                 extendedKey: privateAccountChildKey,
                 attributes: privateAccountChildKeyAttributes
             )
-            return try Account(
+            return Account(
                 name: configuration.name,
                 coinType: coinType,
                 serializedKey: privateAccountSerializedChildKey
