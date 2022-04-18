@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import BIP44
+import BIP44
 
 final class NeuteredAccountAddressProviderTests: XCTestCase {
     private var accountProvider: AccountProvider!

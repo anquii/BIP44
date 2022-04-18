@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 import BIP32
-@testable import BIP44
+import BIP44
 
 final class AccountProviderTests: XCTestCase {
     private let serializedKeyCoder = SerializedKeyCoder()
