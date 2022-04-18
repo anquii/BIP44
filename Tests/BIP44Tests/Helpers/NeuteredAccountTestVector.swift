@@ -8,6 +8,8 @@ struct NeuteredAccountTestVector {
         .components(separatedBy: .newlines)
         .joined()
 
+    static let name = "Savings"
+    static let coinType = Bitcoin()
     static let version = UInt32(0x0488B21E)
 
     private init() {}
