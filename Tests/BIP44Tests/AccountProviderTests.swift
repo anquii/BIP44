@@ -12,7 +12,7 @@ final class AccountProviderTests: XCTestCase {
 
     func testGivenVectorSeed_AndCoinType_WhenProvideAccount_ThenEqualVectorAccount() throws {
         let seed = Data(hex: AccountTestVector.hexEncodedSeed)
-        let sut = try self.sut(seed: seed, coinType: Bitcoin())
+        let sut = try self.sut(seed: seed, coinType: AccountTestVector.coinType)
         let configuration = AccountConfiguration(
             name: AccountTestVector.name,
             version: AccountTestVector.version,

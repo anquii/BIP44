@@ -18,6 +18,7 @@ struct AccountTestVector {
         .joined()
 
     static let name = "Savings"
+    static let coinType = Bitcoin()
     static let version = UInt32(0x0488ADE4)
     static let index = UInt32(0)
 

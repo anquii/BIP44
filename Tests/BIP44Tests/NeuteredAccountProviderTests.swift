@@ -9,7 +9,7 @@ final class NeuteredAccountProviderTests: XCTestCase {
 
     override func setUpWithError() throws {
         let seed = Data(hex: AccountTestVector.hexEncodedSeed)
-        accountProvider = try AccountProvider(seed: seed, coinType: Bitcoin())
+        accountProvider = try AccountProvider(seed: seed, coinType: AccountTestVector.coinType)
     }
 
     private func sut() -> NeuteredAccountProvider {
