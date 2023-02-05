@@ -38,3 +38,14 @@ Find out more by exploring the public API (e.g. for neutered accounts), and by l
 ## License
 
 `BIP44` is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more information.
+
+## Donations
+
+If you've found this software useful, please consider making a small contribution to one of these crypto addresses:
+
+```
+XNAV: xNTYqoQDzsiB5Cff9Wpt65AgZxYkt1GFy7KwuDafqRU2bcAZqoZUW4Q9TZ9QRHSy8cPsM5ALkJasizJCmqSNP9CosxrF2RbKHuDz5uJVUBcKJfvnb3RZaWygr8Bhuqbpc3DsgfB3ayc
+XMR: 49jzT7Amu9BCvc5q3PGiUzWXEBQTLQw68a2KvBFTMs7SHjeWgrSKgxs69ycFWQupyw9fpR6tdT8Hp5h3KksrBG9m4c8aXiG
+BTC: bc1q7hehfmnq67x5k7vz0cnc75qyflkqtxe2avjkyw
+ETH (ERC-20) & BNB (BEP-20): 0xe08e383B4042749dE5Df57d48c57A690DC322b8d
+```
